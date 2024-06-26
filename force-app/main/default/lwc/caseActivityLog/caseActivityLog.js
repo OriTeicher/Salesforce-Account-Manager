@@ -1,8 +1,7 @@
-import { LightningElement } from 'lwc';
+import { LightningElement } from "lwc"
 
 export default class CaseActivityLog extends LightningElement {
-connectedCallback(){
-    console.log('check')
-}
-
+  connectedCallback() {
+    console.log("test")
+  }
 }
