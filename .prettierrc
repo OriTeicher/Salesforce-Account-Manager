@@ -1,6 +1,7 @@
 {
   "semi": false,
   "tabWidth": 3,
+  "endOfLine": 200,
   "trailingComma": "none",
   "plugins": [
     "prettier-plugin-apex",

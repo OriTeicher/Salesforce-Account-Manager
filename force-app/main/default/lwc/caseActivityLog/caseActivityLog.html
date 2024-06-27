@@ -1,16 +1,15 @@
 <template>
   <lightning-card title="Case Activity Log" icon-name="standard:case">
-    <template if:true={hasHistory}>
-      <lightning-datatable
-        key-field="id"
-        data={caseHistory}
-        columns={columns}
-        hide-checkbox-column="true"
-      >
+
+    <template if:false={isLogsEmpty}>
+      <lightning-datatable key-field="id" data={caseLogs} columns={columnsFields} hide-checkbox-column="true"
+        label="hello">
       </lightning-datatable>
     </template>
-    <template if:false={hasHistory}>
-      <p>No activity history available.</p>
+
+    <template if:true={isLogsEmpty}>
+      <p style="padding: 17px; font-size: 30px">No activity history available.</p>
     </template>
+
   </lightning-card>
 </template>

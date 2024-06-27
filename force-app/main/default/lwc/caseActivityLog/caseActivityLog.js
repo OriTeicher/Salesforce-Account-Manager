@@ -1,72 +1,57 @@
 import { LightningElement, api, wire, track } from "lwc"
-import { refreshApex } from "@salesforce/apex"
-import getCaseHistory from "@salesforce/apex/CaseActivityLogController.getCaseHistory"
-import { getRecordNotifyChange } from "lightning/uiRecordApi"
-import { ShowToastEvent } from "lightning/platformShowToastEvent"
+import getCaseLogs from "@salesforce/apex/CaseActivityLogController.getCaseLogs"
 import { caseActivityLogsService } from "./services/case.activity.log.service.js"
+import { registerRefreshHandler,unregisterRefreshHandler } from "lightning/refresh"
+import { refreshApex } from "@salesforce/apex"
 
 export default class CaseActivityLog extends LightningElement {
    @api recordId
-   @track caseHistory = []
-   wiredCaseHistoryResult
+   @track caseLogs = []
+   wiredCaseLogs
+   refreshLogsId
 
-   @wire(getCaseHistory, { caseId: "$recordId" })
+   connectedCallback() {
+      this.refreshLogsId = registerRefreshHandler(this, this.refreshLogs)
+   }
+
+  disconnectedCallback() {
+    unregisterRefreshHandler(this.refreshLogsId)
+    this.refreshLogsId = null
+   }
+
+   @wire(getCaseLogs, { caseId: "$recordId" })
    wiredCaseHistory(result) {
-      this.wiredCaseHistoryResult = result
+      this.wiredCaseLogs = result
       if (result.data) {
          try {
-            this.caseHistory = result.data.map((item) => {
-               console.log("item", item)
-               const date = caseActivityLogsService.fomratDate(item.CreatedDate)
-               console.log("date", date)
-               return {
-                  id: item.Id,
-                  field: item.Field,
-                  oldValue: item.OldValue,
-                  newValue: item.NewValue,
-                  date
-               }
-            })
+            this.caseLogs = result.data.map((log) => caseActivityLogsService.getCaseEntity(log))
          } catch (error) {
-            console.error("Error processing case history data: ", error.message)
+            console.error(error.message)
          }
-      } else if (result.error) {
-         console.error("Error loading case history: ", result.error)
+      } else if(result.error){
+        console.error(error)
       }
    }
 
-   get columns() {
+   async refreshLogs() {
+      try {
+         await refreshApex(this.wiredCaseLogs)
+      } catch (error) {
+         console.error(error.message)
+      }
+   }
+
+   get columnsFields() {
       return [
          { label: "Field", fieldName: "field", type: "text" },
          { label: "Old Value", fieldName: "oldValue", type: "text" },
          { label: "New Value", fieldName: "newValue", type: "text" },
-         { label: "Change Date", fieldName: "date", type: "date" }
+         { label: "Change date", fieldName: "date", type: "text" }
       ]
    }
 
-   handleRefresh() {
-      refreshApex(this.wiredCaseHistoryResult)
+   get isLogsEmpty() {
+      return this.caseLogs.length < 0
    }
 
-   connectedCallback() {
-      this.recordChangeHandler = () => {
-         this.handleRefresh()
-      }
-      this.template.addEventListener("recordChange", this.recordChangeHandler)
-   }
-
-   disconnectedCallback() {
-      this.template.removeEventListener(
-         "recordChange",
-         this.recordChangeHandler
-      )
-   }
-
-   renderedCallback() {
-      getRecordNotifyChange([{ recordId: this.recordId }])
-   }
-
-   get hasHistory() {
-      return this.caseHistory.length > 0
-   }
 }

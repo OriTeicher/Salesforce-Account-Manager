@@ -1,13 +1,28 @@
 export const caseActivityLogsService = {
-   fomratDate
+   getCaseEntity
 }
 
-function fomratDate(isoString) {
+const  EMPTY_VALUE = "-----"
+
+function getCaseEntity(activityLog) {
+   return {
+      id: activityLog.Id,
+      field: activityLog.Field,
+      oldValue: activityLog.OldValue || EMPTY_VALUE,
+      newValue: activityLog.NewValue || EMPTY_VALUE,
+      date: _formatDate(activityLog.CreatedDate)
+   }
+}
+
+function _formatDate(isoString) {
    const date = new Date(isoString)
-   const day = String(date.getUTCDate()).padStart(2, "0")
-   const month = String(date.getUTCMonth() + 1).padStart(2, "0")
-   const year = date.getUTCFullYear()
-   const hours = String(date.getUTCHours()).padStart(2, "0")
-   const minutes = String(date.getUTCMinutes()).padStart(2, "0")
-   return `${day}/${month}/${year} ${hours}:${minutes}`
+   const options = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+   }
+   return new Intl.DateTimeFormat("he-IL", options).format(date).replace(',',' |')
 }
