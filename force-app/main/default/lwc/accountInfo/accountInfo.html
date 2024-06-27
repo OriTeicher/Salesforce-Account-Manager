@@ -1,20 +1,34 @@
 <template>
-    <lightning-card title="Edit Account Info">
-        <div class="slds-p-around_medium">
+   <lightning-card title="Exercise 2">
+      <lightning-card title="Edit Account Info">
+         <div class="slds-p-around_medium">
             <lightning-input label="Phone" value={phone} name="phone" onchange={handleInputChange}></lightning-input>
             <lightning-input label="Type" value={type} name="type" onchange={handleInputChange}></lightning-input>
-            <lightning-textarea label="Description" value={description} name="description"
-                onchange={handleInputChange}></lightning-textarea>
-        </div>
-    </lightning-card>
-    <lightning-card title="Edit Unassociated Contacts">
-        <div class="slds-p-around_medium">
-            <lightning-datatable data={contacts} columns={columns} key-field="Id" onrowaction={handleContactSelect}
-                hide-checkbox-column="true">
-            </lightning-datatable>
-        </div>
-    </lightning-card>
-    <div class="slds-m-top_medium">
-        <lightning-button label="Submit" onclick={handleSubmit} class="slds-m-top_medium"></lightning-button>
-    </div>
+            <lightning-textarea label="Description" value={description} name="description" class="slds-m-top_medium"
+               onchange={handleInputChange}></lightning-textarea>
+            <lightning-button label="Submit" rowaction={handleSubmit}></lightning-button>
+         </div>
+         <template if:true={contacts}>
+            <table>
+               <template for:each={contacts} for:item="contact">
+                  <tr key={contact.Id}>
+                     <td>
+                        <div class="slds-truncate" title={contact.Name}>{contact.Name}</div>
+                     </td>
+                     <td>
+                        <div class="slds-truncate" title={contact.Email}>{contact.Email}</div>
+                     </td>
+                     <td>
+                        <div class="slds-truncate" title={contact.MobilePhone}>{contact.MobilePhone}</div>
+                     </td>
+                     <td>
+                        <lightning-button label="Select" variant="brand" data-id={contact.Id}
+                           onclick={handleContactSelect}></lightning-button>
+                     </td>
+                  </tr>
+               </template>
+            </table>
+         </template>
+      </lightning-card>
+   </lightning-card>
 </template>

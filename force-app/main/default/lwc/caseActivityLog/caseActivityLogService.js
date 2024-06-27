@@ -2,7 +2,7 @@ export const caseActivityLogsService = {
    getCaseEntity
 }
 
-const  EMPTY_VALUE = "-----"
+const EMPTY_VALUE = "-----"
 
 function getCaseEntity(activityLog) {
    return {
@@ -24,5 +24,7 @@ function _formatDate(isoString) {
       minute: "2-digit",
       hour12: false
    }
-   return new Intl.DateTimeFormat("he-IL", options).format(date).replace(',',' |')
+   return new Intl.DateTimeFormat("he-IL", options)
+      .format(date)
+      .replace(",", " |")
 }

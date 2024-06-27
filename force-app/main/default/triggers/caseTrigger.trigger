@@ -6,6 +6,5 @@ trigger caseTrigger on Case (after update) {
         );
         events.add(event);
     }
-    System.debug('events count: ' + events.size());
     EventBus.publish(events);
 }

@@ -21,7 +21,11 @@ public class accountController {
         if (contactId != null) {
             Contact contact = [SELECT Id, AccountId FROM Contact WHERE Id = :contactId LIMIT 1];
             contact.AccountId = accountId;
+            System.debug(contact);
             update contact;
+            
+        } else {
+             System.debug('contact id not found');
         }
     }
 }
