@@ -1,6 +1,5 @@
 .submit-btn {
     margin-top: 10px;
-
 }
 
 .left-section {
@@ -19,6 +18,12 @@ table {
 
 }
 
+.first-row {
+    background-color: lightblue;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
 .contact-row {
     border-left: 1px solid #747474;
     border-right: 1px solid #747474;
@@ -27,7 +32,7 @@ table {
     font-size: 1rem;
     display: grid;
     align-items: center;
-    grid-template-columns: 3fr 5fr 3fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr 80px;
 }
 
 .contact-row:nth-child(n) {
@@ -55,6 +60,11 @@ table {
 @media (max-width: 1000px) {
     .account-info-container {
         grid-template-columns: unset;
+    }
+
+    .left-section {
+        width: unset;
+        width: 100%;
     }
 
     .contact-row {
