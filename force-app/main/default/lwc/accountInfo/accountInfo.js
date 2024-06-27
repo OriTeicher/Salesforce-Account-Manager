@@ -52,27 +52,7 @@ export default class AccountInfo extends LightningElement {
       await this.handleSubmit(`Contact ${contactId} linked to your account!`)
    }
 
-   get columnsFields() {
-      return [
-         { label: "Name", fieldName: "Name" },
-         { label: "Email", fieldName: "Email", type: "email" },
-         { label: "Mobile Phone", fieldName: "MobilePhone", type: "phone" },
-         {
-            type: "button",
-            typeAttributes: {
-               label: "Select",
-               name: "select_contact",
-               variant: "brand"
-            },
-            cellAttributes: {
-               alignment: "center"
-            }
-         }
-      ]
-   }
-
    async handleSubmit(successMsg = "Account updated!") {
-      console.log(this.selectedContactId)
       try {
          await updateAccountInfo({
             accountId: this.recordId,
@@ -94,7 +74,6 @@ export default class AccountInfo extends LightningElement {
          message,
          variant
       })
-      console.log("title,message,variant", title, message, variant)
       this.dispatchEvent(userMsgEvent)
    }
 }

@@ -1,13 +1,8 @@
 <template>
-   <lightning-card title="Case Activity Log" icon-name="standard:case">
+   <lightning-card title="Exercise 1 - Case Activity Log">
       <template if:false={isLogsEmpty}>
-         <lightning-datatable
-            key-field="id"
-            data={caseLogs}
-            columns={columnsFields}
-            hide-checkbox-column="true"
-            label="hello"
-         >
+         <lightning-datatable key-field="id" data={caseLogs} columns={columnsFields} hide-checkbox-column="true"
+            label="hello">
          </lightning-datatable>
       </template>
 

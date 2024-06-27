@@ -1,25 +1,25 @@
 <template>
-   <lightning-card title="Exercise 2">
-      <lightning-card title="Edit Account Info">
-         <div class="slds-p-around_medium">
+   <lightning-card title="Exercise 2 - Edit Acount Info & Add contacts">
+      <section class="account-info-container">
+         <div class="slds-p-around_medium left-section">
             <lightning-input label="Phone" value={phone} name="phone" onchange={handleInputChange}></lightning-input>
             <lightning-input label="Type" value={type} name="type" onchange={handleInputChange}></lightning-input>
-            <lightning-textarea label="Description" value={description} name="description" class="slds-m-top_medium"
-               onchange={handleInputChange}></lightning-textarea>
-            <lightning-button label="Submit" rowaction={handleSubmit}></lightning-button>
+            <lightning-textarea label="Description" value={description} name="description" onchange={handleInputChange}
+               style="margin-bottom: 15px;"></lightning-textarea>
+            <lightning-button label="Submit" class="slds-m-top_medium" onclick={handleSubmit}></lightning-button>
          </div>
          <template if:true={contacts}>
             <table>
                <template for:each={contacts} for:item="contact">
-                  <tr key={contact.Id}>
+                  <tr key={contact.Id} class="contact-row">
                      <td>
-                        <div class="slds-truncate" title={contact.Name}>{contact.Name}</div>
+                        {contact.Name}
                      </td>
                      <td>
-                        <div class="slds-truncate" title={contact.Email}>{contact.Email}</div>
+                        {contact.Email}
                      </td>
                      <td>
-                        <div class="slds-truncate" title={contact.MobilePhone}>{contact.MobilePhone}</div>
+                        {contact.MobilePhone}
                      </td>
                      <td>
                         <lightning-button label="Select" variant="brand" data-id={contact.Id}
@@ -29,6 +29,7 @@
                </template>
             </table>
          </template>
-      </lightning-card>
+      </section>
+
    </lightning-card>
 </template>
