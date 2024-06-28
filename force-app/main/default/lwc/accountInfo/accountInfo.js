@@ -3,6 +3,7 @@ import getAccountDetails from "@salesforce/apex/AccountController.getAccountDeta
 import getUnassociatedContacts from "@salesforce/apex/AccountController.getUnassociatedContacts"
 import updateAccountInfo from "@salesforce/apex/AccountController.updateAccountInfo"
 import { ShowToastEvent } from "lightning/platformShowToastEvent"
+import { refreshApex } from "@salesforce/apex"
 
 export default class AccountInfo extends LightningElement {
    @api recordId
@@ -12,9 +13,12 @@ export default class AccountInfo extends LightningElement {
    @track phone
    @track type
    @track description
+   wiredAccountResult
+   wiredContactsResult
 
    @wire(getAccountDetails, { accountId: "$recordId" })
    wiredAccount(result) {
+      this.wiredAccountResult = result
       const { error, data } = result
       if (data) {
          this.account = data
@@ -27,12 +31,23 @@ export default class AccountInfo extends LightningElement {
    }
 
    @wire(getUnassociatedContacts)
-   wiredContacts({ error, data }) {
+   wiredContacts(result) {
+      this.wiredContactsResult = result
+      const { error, data } = result
       if (data) {
          this.contacts = data
       } else if (error) {
          this.showUserMsg("Error", "Error loading contacts data", "error")
       }
+   }
+
+   connectedCallback() {
+      this.refreshData()
+   }
+
+   refreshData() {
+      refreshApex(this.wiredAccountResult)
+      refreshApex(this.wiredContactsResult)
    }
 
    handleInputChange(event) {
@@ -62,6 +77,7 @@ export default class AccountInfo extends LightningElement {
             contactId: this.selectedContactId
          })
          this.showUserMsg(successMsg, "Account updated!", "success")
+         this.refreshData() // Refresh the account details
       } catch (error) {
          console.error("Error: ", error.message)
          this.showUserMsg("Error", "Error updating account", "error")

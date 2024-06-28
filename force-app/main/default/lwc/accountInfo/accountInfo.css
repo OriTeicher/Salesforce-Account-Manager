@@ -19,7 +19,7 @@ table {
 }
 
 .first-row {
-    background-color: lightblue;
+    background-color: rgba(173, 216, 230, 0.692);
     font-size: 1.2rem;
     font-weight: 700;
 }

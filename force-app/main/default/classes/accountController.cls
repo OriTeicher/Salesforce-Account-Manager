@@ -28,4 +28,16 @@ public class accountController {
              System.debug('contact id not found');
         }
     }
+
+    public static void deleteAllContacts() {
+        List<Contact> contactsToDelete = [SELECT Id FROM Contact];
+        
+        if (!contactsToDelete.isEmpty()) {
+            Database.delete(contactsToDelete, false);
+            System.debug('Deleted ' + contactsToDelete.size() + ' contacts.');
+        } else {
+            System.debug('No contacts found to delete.');
+        }
+    }
 }
+
