@@ -16,6 +16,15 @@ export default class AccountInfo extends LightningElement {
    wiredAccountResult
    wiredContactsResult
 
+   connectedCallback() {
+      this.refreshAccountInfo()
+   }
+
+   refreshAccountInfo() {
+      refreshApex(this.wiredAccountResult)
+      refreshApex(this.wiredContactsResult)
+   }
+
    @wire(getAccountDetails, { accountId: "$recordId" })
    wiredAccount(result) {
       this.wiredAccountResult = result
@@ -41,15 +50,6 @@ export default class AccountInfo extends LightningElement {
       }
    }
 
-   connectedCallback() {
-      this.refreshData()
-   }
-
-   refreshData() {
-      refreshApex(this.wiredAccountResult)
-      refreshApex(this.wiredContactsResult)
-   }
-
    handleInputChange(event) {
       const field = event.target.name
       if (field === "phone") {
@@ -62,9 +62,9 @@ export default class AccountInfo extends LightningElement {
    }
 
    async handleContactSelect(event) {
-      const contactId = event.target.dataset.id
-      this.selectedContactId = contactId
-      await this.handleSubmit(`Contact ${contactId} linked to your account!`)
+      const { name, id } = event.target.dataset
+      this.selectedContactId = id
+      await this.handleSubmit(`${name} linked to your account!`)
    }
 
    async handleSubmit(successMsg = "Account updated!") {
@@ -77,7 +77,7 @@ export default class AccountInfo extends LightningElement {
             contactId: this.selectedContactId
          })
          this.showUserMsg(successMsg, "Account updated!", "success")
-         this.refreshData() // Refresh the account details
+         this.refreshAccountInfo()
       } catch (error) {
          console.error("Error: ", error.message)
          this.showUserMsg("Error", "Error updating account", "error")
