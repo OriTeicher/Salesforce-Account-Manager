@@ -1,12 +1,12 @@
 public class caseCommentsBatch implements Database.Batchable<SObject>, Database.Stateful {
     private Id caseId;
-    private final Integer COMMENTS_TO_CREATE_AMOUNT;
+    private final Integer CASE_COMMENTS_AMOUNT;
     private final Integer BATCH_SIZE;
     private Integer createdCommentsCounter;
 
     public caseCommentsBatch(Id caseId, Integer amount, Integer batchSize) {
         this.caseId = caseId;
-        this.COMMENTS_TO_CREATE_AMOUNT = amount;
+        this.CASE_COMMENTS_AMOUNT = amount;
         this.BATCH_SIZE = batchSize;
         this.createdCommentsCounter = 0;
     }
@@ -26,7 +26,7 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
 
     private List<CaseComment> getCaseComments() {
         List<CaseComment> createdCaseComments = new List<CaseComment>();
-        for (Integer i = 0; i < BATCH_SIZE && createdCommentsCounter < COMMENTS_TO_CREATE_AMOUNT; i++) {
+        for (Integer i = 0; i < BATCH_SIZE && createdCommentsCounter < CASE_COMMENTS_AMOUNT; i++) {
             createdCaseComments.add(createComment());
             createdCommentsCounter++;
         }
@@ -36,19 +36,19 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
     private CaseComment createComment() {
         return new CaseComment(
             ParentId = caseId,
-            CommentBody = 'Comment number #' + (commentsCreatedCounter + 1),
+            CommentBody = 'Comment number #' + (createdCommentsCounter + 1),
             IsPublished = true
         );
     }
 
     public void finish(Database.BatchableContext bc) {
-        if (createdCommentsCounter < COMMENTS_TO_CREATE_AMOUNT) {
-            caseCommentsBatch nextBatch = new caseCommentsBatch(caseId, COMMENTS_TO_CREATE_AMOUNT, BATCH_SIZE);
+        if (createdCommentsCounter < CASE_COMMENTS_AMOUNT) {
+            caseCommentsBatch nextBatch = new caseCommentsBatch(caseId, CASE_COMMENTS_AMOUNT, BATCH_SIZE);
             nextBatch.createdCommentsCounter = this.createdCommentsCounter;
             Database.executeBatch(nextBatch, BATCH_SIZE);
-            System.debug('Remaining comments: ' + (COMMENTS_TO_CREATE_AMOUNT - createdCommentsCounter));
+            System.debug('Remaining comments: ' + (CASE_COMMENTS_AMOUNT - createdCommentsCounter));
         } else {
-            System.debug(COMMENTS_TO_CREATE_AMOUNT + ' comments created successfully.');
+            System.debug(this.createdCommentsCounter + ' comments created successfully.');
         }
     }
 }
