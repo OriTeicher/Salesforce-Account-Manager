@@ -21,7 +21,7 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
         for (Integer i = 0; i < BATCH_SIZE && commentsCreatedCounter < COMMENTS_TO_CREATE_AMOUNT; i++) {
             CaseComment comment = new CaseComment(
                 ParentId = caseId,
-                CommentBody = 'Comment #_' + (commentsCreatedCounter + 1),
+                CommentBody = 'Comment #' + (commentsCreatedCounter + 1),
                 IsPublished = true
             );
             commentsToCreate.add(comment);
