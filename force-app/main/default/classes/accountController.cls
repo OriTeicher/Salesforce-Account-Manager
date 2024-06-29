@@ -31,7 +31,6 @@ public class accountController {
 
     public static void deleteAllContacts() {
         List<Contact> contactsToDelete = [SELECT Id FROM Contact];
-        
         if (!contactsToDelete.isEmpty()) {
             Database.delete(contactsToDelete, false);
             System.debug('Deleted ' + contactsToDelete.size() + ' contacts.');
