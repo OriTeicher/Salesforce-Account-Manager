@@ -8,8 +8,9 @@ public with sharing class caseActivityLogController {
                 WHERE CaseId = :caseId
                 ORDER BY CreatedDate DESC
             ];
-        } catch (Exception e) {
-            throw new AuraHandledException('Error fetching case history: ' + e.getMessage());
+        } catch (Exception error) {
+            System.debug('Error getting case logs - ' + error.getMessage());
+            throw error;
         }
     }
 }
