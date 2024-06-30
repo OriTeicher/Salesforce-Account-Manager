@@ -1,4 +1,5 @@
 trigger caseCommentsTrigger on Case (after insert) {
+
     final Integer CASE_COMMENTS_AMOUNT = 20000;
     final Integer BATCH_SIZE = 200;
 
