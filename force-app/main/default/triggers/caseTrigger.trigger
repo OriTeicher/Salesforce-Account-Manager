@@ -8,4 +8,3 @@ trigger caseTrigger on Case (after update) {
     }
     EventBus.publish(events);
 }
-

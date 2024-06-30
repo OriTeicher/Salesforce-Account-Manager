@@ -36,9 +36,17 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
     private CaseComment createComment() {
         return new CaseComment(
             ParentId = caseId,
-            CommentBody = 'Comment number #' + (createdCommentsCounter + 1),
+            CommentBody = getFormattedCommentBody(),
             IsPublished = true
         );
+    }
+    
+    public String getFormattedCommentBody() {
+        String formattedNumber = String.valueOf(this.createdCommentsCounter + 1);
+        while (formattedNumber.length() < 5) {
+            formattedNumber = '0' + formattedNumber;
+        }
+        return 'Comment #' + formattedNumber;
     }
 
     public void finish(Database.BatchableContext bc) {
@@ -46,7 +54,6 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
             caseCommentsBatch nextBatch = new caseCommentsBatch(caseId, CASE_COMMENTS_AMOUNT, BATCH_SIZE);
             nextBatch.createdCommentsCounter = this.createdCommentsCounter;
             Database.executeBatch(nextBatch, BATCH_SIZE);
-            System.debug('Remaining comments: ' + (CASE_COMMENTS_AMOUNT - createdCommentsCounter));
         } else {
             System.debug(this.createdCommentsCounter + ' comments created successfully.');
         }
