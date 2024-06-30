@@ -1,25 +1,33 @@
 
-# Case Activity Log Component
+# Home Assignment 
 
-## Overview
-This repository contains a Salesforce Lightning web component designed to display case activity logs. The component enhances case management by providing a visual representation of case activities within a `lightning-card`.
-
-## Features
-- **Dynamic Data Display**: Utilizes `lightning-datatable` to show detailed case activity logs when available.
-- **Conditional Rendering**: Displays a user-friendly message when no activity logs are present, ensuring a clean and informative user interface.
-- **Customizable Layout**: Easily modify columns and data fields to suit specific business requirements.
+## Components
+### 1. Case Activity Log Component
+Purpose: Displays an activity log on the Case page layout, reflecting changes made to the Case record.
+Functionality:
+- Automatically refreshes to show updates each time a Case field is modified, listing the changed fields and their new values.
+- Enhances visibility into Case modifications directly on the page layout.
+  
+### 2. Account Management Component
+Purpose: Placed on the Account Lightning Record page to manage Account details and associate Contacts.
+Features:
+- Displays input fields for Account Phone, Type, and Description.
+- Includes a table listing up to 10 unassociated Contacts with options to select and associate them with the Account.
+- A "Save" button updates the Account details.
+- A "Select" button associates the contact to the user. 
+- Provides success or failure messages after operations.
+  
+### 3. Server-Side Processes
+Case Comment Creation Process
+- Purpose: Automates the creation of Case Comments.
+- Functionality: Triggers on the creation of a new Case record, generating 20,000 Case Comment records under the newly created Case.
+![code](https://github.com/OriTeicher/Home-Assignment-Tnuva/assets/101281765/72e6d11b-1484-4a3b-9205-8bd99c43a28a)
 
 ## Installation
-1. Clone the repository to your local machine.
-2. Deploy the component to your Salesforce org using Salesforce CLI or other deployment tools.
-3. Add the component to the desired Lightning page layout or Lightning App Builder.
+- Clone the repository to your local machine using:
+```bash
+git clone  git clone https://github.com/OriTeicher/Home-Assignment-Tnuva.git
+```
+- Deploy the component to your Salesforce org using Salesforce CLI or other deployment tools.
+- Add the component to the desired Lightning page layout or Lightning App Builder.
 
-## Usage
-- **Adding to a Page**: Navigate to the Lightning App Builder, select the desired page, and drag the Case Activity Log component onto the canvas.
-- **Configuration**: Adjust the `columnsFields` attribute to customize the data columns displayed in the table according to your business needs.
-
-## Contribution
-Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes. Ensure all changes are well-documented and tested.
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
