@@ -32,7 +32,7 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
         }
         return createdCaseComments;
     }
-
+    
     private CaseComment createComment() {
         return new CaseComment(
             ParentId = caseId,
@@ -41,6 +41,7 @@ public class caseCommentsBatch implements Database.Batchable<SObject>, Database.
         );
     }
     
+    // helper function to sort the comments by name easily later
     public String getFormattedCommentBody() {
         String formattedNumber = String.valueOf(this.createdCommentsCounter + 1);
         while (formattedNumber.length() < 5) {
