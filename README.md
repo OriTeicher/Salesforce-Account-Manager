@@ -1,18 +1,25 @@
-# Salesforce DX Project: Next Steps
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+# Case Activity Log Component
 
-## How Do You Plan to Deploy Your Changes?
+## Overview
+This repository contains a Salesforce Lightning web component designed to display case activity logs. The component enhances case management by providing a visual representation of case activities within a `lightning-card`.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+## Features
+- **Dynamic Data Display**: Utilizes `lightning-datatable` to show detailed case activity logs when available.
+- **Conditional Rendering**: Displays a user-friendly message when no activity logs are present, ensuring a clean and informative user interface.
+- **Customizable Layout**: Easily modify columns and data fields to suit specific business requirements.
 
-## Configure Your Salesforce DX Project
+## Installation
+1. Clone the repository to your local machine.
+2. Deploy the component to your Salesforce org using Salesforce CLI or other deployment tools.
+3. Add the component to the desired Lightning page layout or Lightning App Builder.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+## Usage
+- **Adding to a Page**: Navigate to the Lightning App Builder, select the desired page, and drag the Case Activity Log component onto the canvas.
+- **Configuration**: Adjust the `columnsFields` attribute to customize the data columns displayed in the table according to your business needs.
 
-## Read All About It
+## Contribution
+Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes. Ensure all changes are well-documented and tested.
 
--  [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
--  [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
--  [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
--  [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
