@@ -1,4 +1,6 @@
 public class accountControllerUtils {
+
+    // helper function to create random contacts in order to allow the user to choose them from the lwc component
     public static void getRandomUnassociatedContacts(Integer amount) {
         List<Contact> contacts = new List<Contact>();
         List<String> firstNames = new List<String>{'Liam', 'Noah', 'Ethan', 'Aiden', 'Logan', 'Lucas', 'Mason', 'Oliver', 'Elijah', 'James', 'William', 'Benjamin', 'Alexander', 'Jacob', 'Michael', 'Daniel', 'Henry', 'Matthew', 'Samuel', 'Sebastian'};
@@ -20,7 +22,8 @@ public class accountControllerUtils {
         
         insert contacts;
     }
-    
+
+    // helper function for development
     public static void deleteAllContacts() {
         List<Contact> contactsToDelete = [SELECT Id FROM Contact];
         if (!contactsToDelete.isEmpty()) {
