@@ -51,7 +51,7 @@ export default class CaseActivityLog extends LightningElement {
    }
 
    get isLogsEmpty() {
-      return this.caseLogs.length < 0
+      return this.caseLogs.length === 0
    }
 
    disconnectedCallback() {
