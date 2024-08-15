@@ -1,5 +1,5 @@
 
-# Home Assignment 
+# Salesforce Account Manager
 
 ## Intro
 This project contains multiple LWC components and Apex processes designed to improve the Salesforce user experience by tracking changes, managing account details, and automating case comment creation
