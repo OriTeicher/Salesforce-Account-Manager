@@ -37,7 +37,7 @@ Case Comment Creation Process
 ## Installation
 - Clone the repository to your local machine using:
 ```bash
-git clone https://github.com/OriTeicher/Home-Assignment-Tnuva.git
+git clone https://github.com/OriTeicher/Salesforce-Account-Manager
 ```
 - Deploy the component to your Salesforce org using Salesforce CLI or other deployment tools.
 - Add the component to the desired Lightning page layout or Lightning App Builder.
